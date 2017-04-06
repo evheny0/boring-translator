@@ -1,5 +1,5 @@
 {
-  "name" : "Translator",
+  "name" : "Boring translator",
   "version" : "1",
   "manifest_version" : 2,
   "content_scripts": [

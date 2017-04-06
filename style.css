@@ -1,0 +1,39 @@
+.translate-box {
+  color: black;
+  z-index: 9999999;
+  position: absolute;
+}
+
+.translate-box_hidden {
+  display: none;
+}
+
+.translate-box__container {
+  -webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+
+  padding: 10px;
+  padding-right: 30px;
+  background-color: white;
+}
+
+.translate-box__text {
+  margin: 0;
+  max-width: 400px;
+  font-size: 1rem;
+  font-family: arial,sans-serif;
+  font-weight: normal;
+  line-height: initial;
+}
+
+.translate-box__close {
+  position: absolute;
+  right: 9px;
+  top: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: initial;
+}

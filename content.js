@@ -6,11 +6,11 @@ class Translator {
   }
 
   createTranslateBox() {
-    let translateBox = document.createElement("div");
-    translateBox.id = "translate-box";
-    translateBox.className = "translate-box translate-box_hidden";
-    translateBox.innerHTML = "<div class='translate-box__container'><p class='translate-box__text'>Hello!</p><span class='translate-box__close'>&times;</span></div>";
-    document.body.appendChild(translateBox);
+    this.translateBox = document.createElement("div");
+    this.translateBox.id = "translate-box";
+    this.translateBox.className = "translate-box translate-box_hidden";
+    this.translateBox.innerHTML = "<div class='translate-box__container'><p class='translate-box__text'>Hello!</p><span class='translate-box__close'>&times;</span></div>";
+    document.body.appendChild(this.translateBox);
   };
 
   wireListeners() {
@@ -19,19 +19,19 @@ class Translator {
   }
 
   addDismissListener() {
-    let dismissBox = function() { this.classList.add("translate-box_hidden") };
-    document.getElementById("translate-box").addEventListener('click', dismissBox);
+    this.translateBox.addEventListener('click', this.hideTranslateBox.bind(this));
   }
 
   onTranslate(event) {
     if (!window.event.ctrlKey) {
       return;
     }
+
     let sourceText = window.getSelection().toString();
     let xhr = this.buildAndSendRequest(sourceText);
     xhr.onreadystatechange = () => {
+      this.showTranslateBox('...', event);
       if (xhr.readyState === 4) {
-        this.showTranslateBox('...', event);
         if (xhr.status === 200) {
           this.showTranslateBox(eval(xhr.responseText)[0][0][0], event);
         } else {
@@ -42,11 +42,14 @@ class Translator {
   }
 
   showTranslateBox(text, event) {
-    let box = document.getElementById("translate-box");
-    box.classList.remove("translate-box_hidden");
-    box.style.left = event.pageX + "px";
-    box.style.top = event.pageY + 10 + "px";
-    box.firstChild.firstChild.innerHTML = text;
+    this.translateBox.classList.remove("translate-box_hidden");
+    this.translateBox.style.left = event.pageX + "px";
+    this.translateBox.style.top = event.pageY + 10 + "px";
+    this.translateBox.firstChild.firstChild.innerHTML = text;
+  }
+
+  hideTranslateBox() {
+    this.translateBox.classList.add("translate-box_hidden")
   }
 
   buildAndSendRequest(text) {
